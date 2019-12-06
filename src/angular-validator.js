@@ -57,12 +57,17 @@ angular.module('angularValidator').directive('angularValidator',
                 });
 
 
-                scopeForm.reset = function () {
+                scopeForm.reset = function (disableValueReset) {
                     // Clear all the form values
                     for (var i = 0; i < DOMForm.length; i++) {
                         if (DOMForm[i].name) {
-                            scopeForm[DOMForm[i].name].$setViewValue("");
-                            scopeForm[DOMForm[i].name].$render();
+                            if (scopeForm[DOMForm[i].name]) {
+                                if (!disableValueReset) {
+                                    scopeForm[DOMForm[i].name].$setViewValue("");
+                                }
+                                
+                                scopeForm[DOMForm[i].name].$render();
+                            }
                         }
                     }
                     scopeForm.submitted = false;
